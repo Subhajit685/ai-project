@@ -2,10 +2,13 @@ import express from "express";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { phones } from "./phones.js";
 import cors from "cors";
+import path from "path"
 
+const PORT = process.env.PORT || 5000;
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+const _dirname = path.resolve()
 
 app.use(
   cors({
@@ -89,7 +92,13 @@ ${phoneListText}
   }
 });
 
-const PORT = process.env.PORT || 5000;
+app.use(express.static(path.join(_dirname, "/my-project/dist")));
+
+app.get(/.*/, (req, res) => {
+  res.sendFile(path.resolve(_dirname, "my-project", "dist", "index.html"));
+});
+
+
 app.listen(PORT, () =>
   console.log(`🚀 Server running on http://localhost:${PORT}`)
 );
