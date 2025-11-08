@@ -9,7 +9,7 @@ export default function App() {
   // Load all phones on mount
   const fetchData = async () => {
     try {
-      const res = await fetch("http://localhost:5000/phones");
+      const res = await fetch("https://ai-project-tzyj.onrender.com/phones");
       const data = await res.json();
       console.log(data.data);
       setPhones(data.data);
@@ -32,7 +32,7 @@ export default function App() {
     setRecommended(null);
 
     try {
-      const res = await fetch("http://localhost:5000/recommend", {
+      const res = await fetch("https://ai-project-tzyj.onrender.com/recommend", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query }),
